@@ -16,11 +16,14 @@ public class BulletScript : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.tag == "Enemy")
+        if (collision.collider.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+            Destroy(collision.collider.gameObject);
+            FindObjectOfType<PlayerMovement>().EnemiesKilled++;
             FindObjectOfType<PlayerMovement>().CoinCount++;
         }
     }

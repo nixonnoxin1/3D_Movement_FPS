@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public int CoinCount;
+    public int EnemiesKilled;
 
     public float horizontalInput;
     public float verticalInput;
