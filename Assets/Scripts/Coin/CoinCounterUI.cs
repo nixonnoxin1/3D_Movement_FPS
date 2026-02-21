@@ -18,6 +18,6 @@ public class CoinCounterUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text.text = "Coins: " +FindAnyObjectByType<PlayerMovement>().CoinCount;
+        Text.text = "Coins: " + FindAnyObjectByType<PlayerMovement>().CoinCount;
     }
 }
