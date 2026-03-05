@@ -20,8 +20,10 @@ public class EnemyHurt : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.collider.tag == "Player")
         {
+            print("Enemy COl with player");
             HMS.PlayerHelth -= 20;
         }
     }

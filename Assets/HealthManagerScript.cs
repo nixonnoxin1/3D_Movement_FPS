@@ -9,7 +9,7 @@ public class HealthManagerScript : MonoBehaviour
 
     public Image ForeGround;
 
-    public float PlayerHelth = 100;
+    public float PlayerHealth = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,15 +19,16 @@ public class HealthManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ForeGround.fillAmount = PlayerHelth / 100;
+        ForeGround.fillAmount = PlayerHealth / 100;
+        killPlayer();
     }
 
 
     public void killPlayer()
     {
-        if (PlayerHelth <= 0)
+        if (PlayerHealth <= 0)
         {
-            Destroy(Player);
+            Destroy(Player.gameObject);
         }
     }
 }
