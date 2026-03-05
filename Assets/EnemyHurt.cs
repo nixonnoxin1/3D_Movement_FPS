@@ -24,7 +24,7 @@ public class EnemyHurt : MonoBehaviour
         if (collision.collider.tag == "Player")
         {
             print("Enemy COl with player");
-            HMS.PlayerHelth -= 20;
+            HMS.PlayerHealth -= 20;
         }
     }
 }

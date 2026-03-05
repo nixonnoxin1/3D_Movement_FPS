@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Audio_Manager_Script AMS;
+    public HealthManagerScript HMS;
 
     public int CoinCount;
     public int EnemiesKilled;
@@ -90,10 +91,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Coin")
         {
-            FindAnyObjectByType<HealthManagerScript>().PlayerHelth -= 20;
+            HMS.PlayerHealth -= 20;
             AMS.PlayCoinCollect();
             Destroy(other.gameObject);
             CoinCount++;
         }
+
+        if (other.tag == "Enemy")
+        {
+            HMS.PlayerHealth -= 20;
+        }
+
     }
 }
