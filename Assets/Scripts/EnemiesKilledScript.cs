@@ -16,6 +16,6 @@ public class EnemiesKilledScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text.text = "Enemies Killed: " + FindObjectOfType<PlayerMovement>().EnemiesKilled;
+        Text.text = "Enemies Killed: " + FindObjectOfType<PlayerController>().EnemiesKilled;
     }
 }

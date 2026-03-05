@@ -966,6 +966,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSpawnPoint: {fileID: 469591777}
   BulletPre: {fileID: 1493374321196646332, guid: d5dcacf14588d9b4885819a7cd6c5d0f, type: 3}
+  BulletDamage: 25
+  Rapid_fire: 0
+  Double_Shot: 0
+  fireMode: Single
   BulletSpeed: 30
 --- !u!4 &1025236104 stripped
 Transform:
@@ -1029,7 +1033,6 @@ GameObject:
   - component: {fileID: 1073410331}
   - component: {fileID: 1073410330}
   - component: {fileID: 1073410329}
-  - component: {fileID: 1073410328}
   - component: {fileID: 1073410333}
   m_Layer: 5
   m_Name: Canvas
@@ -1038,19 +1041,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1073410328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073410327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c7af812b3c6c7442876106b739e310a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Text: {fileID: 2116438333}
 --- !u!114 &1073410329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1144,10 +1134,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1073410327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638ef509eea002447b12889cd181ff92, type: 3}
+  m_Script: {fileID: 11500000, guid: d0e033e55b8de6e4d87d0bcb169df821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: {fileID: 375717343}
+  EnemiesKilledText: {fileID: 375717343}
+  CoinCountText: {fileID: 2116438333}
+  TimeCounter: {fileID: 0}
 --- !u!1 &1121298624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,8 +1354,9 @@ GameObject:
   - component: {fileID: 1535836840}
   - component: {fileID: 1535836839}
   - component: {fileID: 1535836838}
-  - component: {fileID: 1535836837}
   - component: {fileID: 1535836836}
+  - component: {fileID: 1535836843}
+  - component: {fileID: 1535836842}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1398,26 +1391,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &1535836837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535836835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e67d81a3952e54f88cfb85a949dadb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CoinCount: 0
-  EnemiesKilled: 0
-  horizontalInput: 0
-  verticalInput: 0
-  player: {fileID: 1535836835}
-  PlayerSpeed: 7
-  JumpForce: 10
-  isGrounded: 0
 --- !u!136 &1535836838
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1508,6 +1481,56 @@ Transform:
   - {fileID: 1017200172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1535836842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535836835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce6f0d4e5c6cc64eac2cf58ed7787a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoinCount: 0
+  EnemiesKilled: 0
+  playerCamera: {fileID: 963194227}
+  walkSpeed: 6
+  runSpeed: 12
+  jumpPower: 7
+  gravity: 10
+  lookSpeed: 2
+  lookXLimit: 45
+  defaultHeight: 2
+  crouchHeight: 1
+  crouchSpeed: 3
+--- !u!143 &1535836843
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535836835}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1631720795 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5946407882626907341, guid: 089d3fbd2e22b4b4986f7f38c0a8fa5e, type: 3}

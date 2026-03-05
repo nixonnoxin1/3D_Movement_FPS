@@ -20,8 +20,8 @@ public class UI_Handler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EnemiesKilledText.text = "Enemies Killed: " + FindObjectOfType<PlayerMovement>().EnemiesKilled;
-        CoinCountText.text = "Coins: " + FindAnyObjectByType<PlayerMovement>().CoinCount;
+        EnemiesKilledText.text = "Enemies Killed: " + FindObjectOfType<PlayerController>().EnemiesKilled;
+        CoinCountText.text = "Coins: " + FindAnyObjectByType<PlayerController>().CoinCount;
         TimeCounter.text = "Time: " + Time.deltaTime;
     }
 }

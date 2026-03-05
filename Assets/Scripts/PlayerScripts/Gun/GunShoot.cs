@@ -19,6 +19,9 @@ public class GunShoot : MonoBehaviour
     float DelyFire = 0.0f;
 
     bool canShoot;
+
+
+    public Audio_Manager_Script AMS;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,10 +86,11 @@ public class GunShoot : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && fireMode == "Single")
         {
-            GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
-            bullet.SetActive(true);
-            bullet.GetComponent<Rigidbody>().velocity = Vector3.forward * BulletSpeed;
-            StartCoroutine(Wait(bullet));
+            GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity); //create bullet
+            AMS.PlayGunFire(); // play sound
+            bullet.SetActive(true);// set bullet to true so ytou can see it
+            bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;//set bullet velocity
+            StartCoroutine(Wait(bullet));// time in between bullet so you cant rapidfire
         }
     }
 
@@ -97,8 +101,9 @@ public class GunShoot : MonoBehaviour
             DelyFire = 0.1f;
             StartCoroutine(TimeBetweenBullets(DelyFire));
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
+            AMS.PlayGunFire(); // play sound
             bullet.SetActive(true);
-            bullet.GetComponent<Rigidbody>().velocity = Vector3.forward * BulletSpeed;
+            bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
             StartCoroutine(Wait(bullet));
 
         }
@@ -119,8 +124,8 @@ public class GunShoot : MonoBehaviour
             bullet1.SetActive(true);
             bullet2.SetActive(true);
 
-            bullet1.GetComponent<Rigidbody>().velocity = Vector3.forward * BulletSpeed;
-            bullet2.GetComponent<Rigidbody>().velocity = Vector3.forward * BulletSpeed;
+            bullet1.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
+            bullet2.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
 
             StartCoroutine(Wait(bullet1));
             StartCoroutine(Wait(bullet2));

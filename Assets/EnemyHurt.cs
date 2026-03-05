@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class EnemyHurt : MonoBehaviour
 {
+    private HealthManagerScript HMS;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        HMS = FindAnyObjectByType<HealthManagerScript>();
     }
 
     // Update is called once per frame
@@ -16,16 +18,11 @@ public class BulletScript : MonoBehaviour
         
     }
 
-    
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Enemy")
+        if (collision.collider.tag == "Player")
         {
-            //Enemy HP-- here insted of destroy
-            Destroy(collision.collider.gameObject);
-            FindObjectOfType<PlayerController>().EnemiesKilled++;
-            FindObjectOfType<PlayerController>().CoinCount++;
+            HMS.PlayerHelth -= 20;
         }
     }
 }
