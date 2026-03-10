@@ -8,6 +8,7 @@ public class UI_Handler : MonoBehaviour
     public TextMeshProUGUI EnemiesKilledText;
     public TextMeshProUGUI CoinCountText;
     public TextMeshProUGUI TimeCounter;
+    public TextMeshProUGUI BulletCounterText;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,9 @@ public class UI_Handler : MonoBehaviour
     {
         EnemiesKilledText.text = "Enemies Killed: " + FindObjectOfType<PlayerController>().EnemiesKilled;
         CoinCountText.text = "Coins: " + FindAnyObjectByType<PlayerController>().CoinCount;
+        BulletCounterText.text = FindAnyObjectByType<GunShoot>().Ammo + "/" + FindAnyObjectByType<GunShoot>().MaxAmmo;
         TimeCounter.text = "Time: " + Time.deltaTime;
     }
+
+
 }

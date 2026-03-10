@@ -12,6 +12,8 @@ public class GunShoot : MonoBehaviour
     public GameObject Explosion;
     public Animator Recoil;
 
+    public bool IsReloading = false;
+    public float reloadTime;
 
     public bool Rapid_fire;
     public bool Double_Shot;
@@ -22,12 +24,19 @@ public class GunShoot : MonoBehaviour
     float DelyFire = 0.0f;
 
     bool canShoot;
+    bool isShooting;
+
+    public int Ammo;
+    public int MaxAmmo = 10;
 
 
     public Audio_Manager_Script AMS;
     // Start is called before the first frame update
     void Start()
     {
+        reloadTime = 0.8f;
+        isShooting = false;
+        Ammo = MaxAmmo;
         Rapid_fire = false;
         canShoot = true;
     }
@@ -35,6 +44,7 @@ public class GunShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        AmmoHandler();
         ToggleFireModes();
         SingleFire();
         RapidFire();
@@ -60,8 +70,19 @@ public class GunShoot : MonoBehaviour
     IEnumerator TimeBetweenBullets(float DelyFire)
     {
         canShoot = false;
+        isShooting = true;
         yield return new WaitForSeconds(DelyFire);
+        isShooting = false;
         canShoot = true;
+    }
+
+    IEnumerator TimeBetweenReload(float reloadTime)
+    {
+        IsReloading = true;
+        yield return new WaitForSeconds(reloadTime);
+        Ammo = MaxAmmo;
+        canShoot = true;
+        IsReloading = false;
     }
 
     void ToggleFireModes()
@@ -87,9 +108,12 @@ public class GunShoot : MonoBehaviour
     }
     void SingleFire()
     {
-        if (Input.GetMouseButtonDown(0) && fireMode == "Single")
+        if (Input.GetMouseButton(0) && fireMode == "Single" && canShoot == true)
         {
+            DelyFire = 0.4f;
+            StartCoroutine(TimeBetweenBullets(DelyFire));
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity); //create bullet
+            Ammo--;
             AMS.PlayGunFire(); // play sound
             Recoil.SetTrigger("Recoil");
             Explosion.GetComponent<ParticleSystem>().Play();
@@ -106,9 +130,10 @@ public class GunShoot : MonoBehaviour
             DelyFire = 0.1f;
             StartCoroutine(TimeBetweenBullets(DelyFire));
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
+            Ammo--;
             AMS.PlayGunFire(); // play sound
-            Explosion.GetComponent<ParticleSystem>().Play();
-            Recoil.SetTrigger("Recoil");
+            Explosion.GetComponent<ParticleSystem>().Play();// play explosion
+            Recoil.SetTrigger("Recoil"); // play recoil animation
             bullet.SetActive(true);
             bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
             StartCoroutine(Wait(bullet));
@@ -128,6 +153,13 @@ public class GunShoot : MonoBehaviour
             GameObject bullet1 = Instantiate(BulletPre, new Vector3(potition.x + 0.5f, potition.y, potition.z) , Quaternion.identity);
             GameObject bullet2 = Instantiate(BulletPre, new Vector3(potition.x + -0.5f, potition.y, potition.z), Quaternion.identity);
 
+            Ammo--;
+            Ammo--;
+
+            AMS.PlayGunFire(); // play sound
+            Explosion.GetComponent<ParticleSystem>().Play();// play explosion
+            Recoil.SetTrigger("Recoil"); // play recoil animation
+
             bullet1.SetActive(true);
             bullet2.SetActive(true);
 
@@ -137,6 +169,20 @@ public class GunShoot : MonoBehaviour
             StartCoroutine(Wait(bullet1));
             StartCoroutine(Wait(bullet2));
 
+        }
+    }
+
+    void AmmoHandler()
+    {
+        if (Ammo <= 0)
+        {
+            canShoot = false;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.R) && IsReloading == false && isShooting == false)
+        {
+            StartCoroutine(TimeBetweenReload(reloadTime));
         }
     }
 }
