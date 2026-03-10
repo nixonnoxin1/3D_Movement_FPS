@@ -9,6 +9,8 @@ public class GunShoot : MonoBehaviour
     public GameObject BulletPre;
     public int BulletDamage = 25;
 
+    public GameObject Explosion;
+
 
     public bool Rapid_fire;
     public bool Double_Shot;
@@ -88,6 +90,7 @@ public class GunShoot : MonoBehaviour
         {
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity); //create bullet
             AMS.PlayGunFire(); // play sound
+            Explosion.GetComponent<ParticleSystem>().Play();
             bullet.SetActive(true);// set bullet to true so ytou can see it
             bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;//set bullet velocity
             StartCoroutine(Wait(bullet));// time in between bullet so you cant rapidfire
@@ -102,6 +105,7 @@ public class GunShoot : MonoBehaviour
             StartCoroutine(TimeBetweenBullets(DelyFire));
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
             AMS.PlayGunFire(); // play sound
+            Explosion.GetComponent<ParticleSystem>().Play();
             bullet.SetActive(true);
             bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
             StartCoroutine(Wait(bullet));
