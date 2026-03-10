@@ -10,6 +10,7 @@ public class GunShoot : MonoBehaviour
     public int BulletDamage = 25;
 
     public GameObject Explosion;
+    public Animator Recoil;
 
 
     public bool Rapid_fire;
@@ -90,6 +91,7 @@ public class GunShoot : MonoBehaviour
         {
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity); //create bullet
             AMS.PlayGunFire(); // play sound
+            Recoil.SetTrigger("Recoil");
             Explosion.GetComponent<ParticleSystem>().Play();
             bullet.SetActive(true);// set bullet to true so ytou can see it
             bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;//set bullet velocity
@@ -106,6 +108,7 @@ public class GunShoot : MonoBehaviour
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
             AMS.PlayGunFire(); // play sound
             Explosion.GetComponent<ParticleSystem>().Play();
+            Recoil.SetTrigger("Recoil");
             bullet.SetActive(true);
             bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
             StartCoroutine(Wait(bullet));
