@@ -22,9 +22,10 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.collider.tag == "Enemy")
         {
+            //Enemy HP-- here insted of destroy
             Destroy(collision.collider.gameObject);
-            FindObjectOfType<PlayerMovement>().EnemiesKilled++;
-            FindObjectOfType<PlayerMovement>().CoinCount++;
+            FindObjectOfType<PlayerController>().EnemiesKilled++;
+            FindObjectOfType<PlayerController>().CoinCount++;
         }
     }
 }
