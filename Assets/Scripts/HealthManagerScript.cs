@@ -10,10 +10,11 @@ public class HealthManagerScript : MonoBehaviour
     public Image ForeGround;
 
     public float PlayerHealth = 100;
+    public float MaxPlayerHealth;
     // Start is called before the first frame update
     void Start()
     {
-        
+        MaxPlayerHealth = PlayerHealth;
     }
 
     // Update is called once per frame

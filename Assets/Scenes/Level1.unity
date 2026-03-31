@@ -1730,7 +1730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 886493045}
   player: {fileID: 1535836841}
-  AttackPrefab: {fileID: 0}
+  AttackPrefab: {fileID: 1493374321196646332, guid: ac81aba6553f5f34580d97fee5e8e0ef, type: 3}
   whatISplayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1860,6 +1860,7 @@ MonoBehaviour:
   Player: {fileID: 1535836835}
   ForeGround: {fileID: 1358099717}
   PlayerHealth: 100
+  MaxPlayerHealth: 0
 --- !u!82 &925443902 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 4281266513038595958, guid: 089d3fbd2e22b4b4986f7f38c0a8fa5e, type: 3}
@@ -2636,7 +2637,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179777971}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
@@ -3115,7 +3116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e79b170219e3b046bf57764c82e12d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 10
+  number: 5
   numbers: 01000000050000000a0000000200000006000000
 --- !u!1 &1535836835
 GameObject:

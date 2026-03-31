@@ -116,15 +116,15 @@ public class EnemyAI : MonoBehaviour
     }
 
     void Attack()
-        {
+    {
         animator.SetTrigger("attack");
-        //Rigidbody rb = Instantiate(AttackPrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        //rb.AddForce(transform.forward* attackSpeedForward, ForceMode.Impulse);
-        //rb.AddForce(transform.up*attackSpeedUp, ForceMode.Impulse);
-
+        Rigidbody rb = Instantiate(AttackPrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+        rb.gameObject.SetActive(true);
+        rb.AddForce(transform.forward * attackSpeedForward, ForceMode.Impulse);
+        rb.AddForce(transform.up * attackSpeedUp, ForceMode.Impulse);
     }
 
-   
+
 
 
 
