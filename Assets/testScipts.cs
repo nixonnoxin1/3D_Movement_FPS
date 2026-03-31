@@ -16,7 +16,8 @@ public class testScipts : MonoBehaviour
     {
         //Math();
         //factorial();
-        PrintODDandEVEN();
+        //PrintODDandEVEN();
+        TimeInSeconds();
         //print("you are: " + number + " You " + CalculateNum() + " drink");
     }
 
@@ -82,5 +83,13 @@ public class testScipts : MonoBehaviour
         print("Number of Even's: " + Even);
 
         print("Number of Odd: " + Odd);
+    }
+
+
+    void TimeInSeconds()
+    {
+        int anwser = number * 60;
+
+        print("Input in minutes: " + number + " Number in Seconds: "  + anwser);
     }
 }

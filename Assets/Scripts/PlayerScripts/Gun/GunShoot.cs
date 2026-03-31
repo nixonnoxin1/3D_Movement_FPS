@@ -180,7 +180,7 @@ public class GunShoot : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R) && IsReloading == false && isShooting == false)
+        if (Input.GetKeyDown(KeyCode.R) && IsReloading == false && isShooting == false && Ammo < MaxAmmo)
         {
             StartCoroutine(TimeBetweenReload(reloadTime));
         }
