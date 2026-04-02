@@ -21,7 +21,7 @@ public class EnemyBulletScript : MonoBehaviour
 
     IEnumerator DestoryBullet()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.3f);
         Destroy(this.gameObject);
     }
 

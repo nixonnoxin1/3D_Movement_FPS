@@ -170,10 +170,10 @@ MonoBehaviour:
   walkPointRange: 10
   timeBetweenAttacks: 0
   timeBetweenDeathsSETValue: 1
-  attackSpeedForward: 10
-  attackSpeedUp: 2
+  attackSpeedForward: 9
+  attackSpeedUp: 3
   sightRange: 8
-  attackRange: 8
+  attackRange: 6
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!65 &8674992275023184909

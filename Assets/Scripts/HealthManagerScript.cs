@@ -32,4 +32,6 @@ public class HealthManagerScript : MonoBehaviour
             Destroy(Player.gameObject);
         }
     }
+
+   
 }
