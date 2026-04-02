@@ -38,7 +38,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //player = GameObject.Find("Player").GetComponent<Transform>();
+        player = GameObject.Find("Player").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
         animator = this.gameObject.GetComponent<Animator>();
 
@@ -118,7 +118,7 @@ public class EnemyAI : MonoBehaviour
     void Attack()
     {
         animator.SetTrigger("attack");
-        Rigidbody rb = Instantiate(AttackPrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+        Rigidbody rb = Instantiate(AttackPrefab, transform.position + (1 * transform.forward), Quaternion.identity).GetComponent<Rigidbody>();
         rb.gameObject.SetActive(true);
         rb.AddForce(transform.forward * attackSpeedForward, ForceMode.Impulse);
         rb.AddForce(transform.up * attackSpeedUp, ForceMode.Impulse);

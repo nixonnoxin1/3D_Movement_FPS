@@ -56,6 +56,7 @@ public class GunShoot : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
+            FindAnyObjectByType<EnemySpawerHandlerScript>().enemies.Remove(other.gameObject);
             Destroy(other.gameObject);
             FindObjectOfType<PlayerMovement>().CoinCount++;
         }
