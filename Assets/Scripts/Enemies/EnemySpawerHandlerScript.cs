@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawerHandlerScript : MonoBehaviour
 {
+    public int NumberOfEnemies;
+
     public GameObject EnemyPre;
     public List<GameObject> enemies = new List<GameObject>();
 
@@ -19,7 +21,7 @@ public class EnemySpawerHandlerScript : MonoBehaviour
     void Start()
     {
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < NumberOfEnemies; i++)
         {
             SpawnLocation();
             var Enemy = Instantiate(EnemyPre, new Vector3(X, 1, Z), Quaternion.identity);
