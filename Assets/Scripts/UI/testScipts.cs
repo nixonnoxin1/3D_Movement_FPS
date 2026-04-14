@@ -17,8 +17,9 @@ public class testScipts : MonoBehaviour
         //Math();
         //factorial();
         //PrintODDandEVEN();
-        TimeInSeconds();
+        //TimeInSeconds();
         //print("you are: " + number + " You " + CalculateNum() + " drink");
+        MoneyProblem();
     }
 
     // Update is called once per frame
@@ -92,4 +93,39 @@ public class testScipts : MonoBehaviour
 
         print("Input in minutes: " + number + " Number in Seconds: "  + anwser);
     }
+
+
+    void MoneyProblem()
+    {
+        number = Random.RandomRange(1, 500);
+        float Temp = number;
+        while (Temp != 0)
+        {
+            if (Temp > 100)
+            {
+                print("Number of 100's: " + number / 100);
+                Temp = Temp - ((number / 100) * 100);
+
+            }else if (Temp > 50)
+            {
+                print("Number of 50's: " + number / 50);
+                Temp = Temp - ((number / 50) * 50);
+            }else if (Temp > 20)
+            {
+                print("Number of 20's: " + number / 20);
+                Temp = Temp - ((number / 20) * 20);
+            }
+            else if (Temp > 1)
+            {
+                float numberof1s = 0;
+                for (int i = 0; i < Temp; i++)
+                {
+                   Temp = Temp - 1;
+                    numberof1s++;
+                }
+            }
+        }
+
+    }
+
 }
