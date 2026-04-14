@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class UI_Handler : MonoBehaviour
 {
+    //pause menu 
+    
+
+
     public TextMeshProUGUI EnemiesKilledText;
     public TextMeshProUGUI CoinCountText;
     public TextMeshProUGUI TimeCounter;

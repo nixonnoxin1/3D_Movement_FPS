@@ -6,9 +6,11 @@ public class Audio_Manager_Script : MonoBehaviour
 {
     public AudioSource GunSrc;
     public AudioSource CoinSrc;
+    public AudioSource EnemyDeathSrc;
 
     public AudioClip GunShot;
     public AudioClip CoinCollect;
+    public AudioClip EnemyDeathSound;
 
     // Start is called before the first frame update
     void Start()
@@ -34,5 +36,11 @@ public class Audio_Manager_Script : MonoBehaviour
     {
         CoinSrc.clip = CoinCollect;
         CoinSrc.Play();
+    }
+
+    public void PlayEnemyDeath()
+    {
+        EnemyDeathSrc.clip = EnemyDeathSound;
+        EnemyDeathSrc.Play();
     }
 }
