@@ -97,33 +97,15 @@ public class testScipts : MonoBehaviour
 
     void MoneyProblem()
     {
-        number = Random.RandomRange(1, 500);
-        float Temp = number;
-        while (Temp != 0)
-        {
-            if (Temp > 100)
-            {
-                print("Number of 100's: " + number / 100);
-                Temp = Temp - ((number / 100) * 100);
+        number = Random.Range(1, 1000000);
+        int Temp = number;
+        int[] notes = { 100, 50, 20, 10, 5, 2, 1 };
 
-            }else if (Temp > 50)
-            {
-                print("Number of 50's: " + number / 50);
-                Temp = Temp - ((number / 50) * 50);
-            }else if (Temp > 20)
-            {
-                print("Number of 20's: " + number / 20);
-                Temp = Temp - ((number / 20) * 20);
-            }
-            else if (Temp > 1)
-            {
-                float numberof1s = 0;
-                for (int i = 0; i < Temp; i++)
-                {
-                   Temp = Temp - 1;
-                    numberof1s++;
-                }
-            }
+        foreach (int note in notes)
+        {
+            int count = Temp / note;
+            print("Number of " + note + "'s: " + count);
+            Temp = Temp % note;
         }
 
     }

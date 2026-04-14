@@ -29,7 +29,7 @@ public class UI_Handler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PauseMenu();
+        //PauseMenu();
 
         EnemiesKilledText.text = "Enemies Killed: " + FindObjectOfType<PlayerController>().EnemiesKilled;
         CoinCountText.text = "Coins: " + FindAnyObjectByType<PlayerController>().CoinCount;

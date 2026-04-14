@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawerHandlerScript : MonoBehaviour
 {
+
+
     public int NumberOfEnemies;
 
     public GameObject EnemyPre;
