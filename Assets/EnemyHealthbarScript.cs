@@ -9,22 +9,43 @@ public class EnemyHealthbarScript : MonoBehaviour
 
     [SerializeField] private Image EHealthBarSprite;
     public float currentHealth;
-    public float maxHealth;
+    public float maxHealth = 100;
 
-    void Start()
+    public GameObject EnemyDeathSorce;
+    public Audio_Manager_Script AMS;
+
+    void Awake()
     {
-        
+
+        EnemyDeathSorce = GameObject.Find("EnemyDeathSoundEffect");
+        AMS = FindAnyObjectByType<Audio_Manager_Script>();
+
+        maxHealth = 100;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        destoryEnemy();
     }
 
 
-    void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
          EHealthBarSprite.fillAmount = currentHealth / maxHealth;
+    }
+
+    void destoryEnemy()
+    {
+        if (currentHealth <= 0)
+        {
+            EnemyDeathSorce.transform.position = this.gameObject.transform.position;
+            AMS.PlayEnemyDeath();
+            FindObjectOfType<PlayerController>().EnemiesKilled++;
+            FindObjectOfType<PlayerController>().CoinCount++;
+            Destroy(this.gameObject);
+
+        }
     }
 }

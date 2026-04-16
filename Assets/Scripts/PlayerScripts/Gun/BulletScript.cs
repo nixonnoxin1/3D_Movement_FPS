@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public GameObject EnemyDeathSorce;
-    public Audio_Manager_Script AMS;
+    public float bulletDamage = 20f;
+
+
     // Start is called before the first frame update
     void Awake()
     {
-        EnemyDeathSorce = GameObject.Find("EnemyDeathSoundEffect");
-        AMS = FindAnyObjectByType<Audio_Manager_Script>();
+        bulletDamage = 20f;
+
     }
 
     // Update is called once per frame
@@ -27,12 +28,9 @@ public class BulletScript : MonoBehaviour
         if (collision.collider.tag == "Enemy")
         {
             //Enemy HP-- here insted of destroy
-            EnemyDeathSorce.transform.position = collision.gameObject.transform.position;
-            AMS.PlayEnemyDeath();
-
+            collision.gameObject.GetComponent<EnemyHealthbarScript>().currentHealth -= bulletDamage;
+            collision.gameObject.GetComponent<EnemyHealthbarScript>().UpdateHealthBar();
             //Destroy(collision.collider.gameObject);
-            FindObjectOfType<PlayerController>().EnemiesKilled++;
-            FindObjectOfType<PlayerController>().CoinCount++;
         }
     }
 }

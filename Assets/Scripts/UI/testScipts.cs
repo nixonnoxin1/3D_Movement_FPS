@@ -20,7 +20,7 @@ public class testScipts : MonoBehaviour
         //TimeInSeconds();
         //print("you are: " + number + " You " + CalculateNum() + " drink");
         //MoneyProblem();
-        PalindromeProblem();
+        //PalindromeProblem();
     }
 
     // Update is called once per frame
@@ -114,19 +114,21 @@ public class testScipts : MonoBehaviour
     void PalindromeProblem()
     {
         string Palindrome = "racecar";
-
-        for (int i = 0; i < Palindrome.Length; i++)
+        bool isPalindrome = true;
+        Palindrome.ToLower();
+        for (int i = 0; i < Palindrome.Length/ 2; i++)
         {
-            print(i);
-            if (Palindrome[i] == Palindrome[Palindrome.Length - 1])
+            if (Palindrome[i] == Palindrome[Palindrome.Length - (1 + i)])
             {
-                print("letter at " + i + " is the same as letter at " + (Palindrome.Length - (i - 1)));
+                isPalindrome = true;
             }
             else
             {
-                print("letter at " + i + " is not the same as letter at " + (Palindrome.Length - (i - 1)));
+                isPalindrome = false;
             }
         }
+
+        print(isPalindrome);
     }
 
 }
