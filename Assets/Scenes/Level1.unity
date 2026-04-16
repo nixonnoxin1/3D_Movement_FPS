@@ -1103,6 +1103,7 @@ GameObject:
   - component: {fileID: 592659534}
   - component: {fileID: 592659533}
   - component: {fileID: 592659537}
+  - component: {fileID: 592659538}
   m_Layer: 0
   m_Name: Teleporter2
   m_TagString: Untagged
@@ -1129,7 +1130,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &592659534
 MeshRenderer:
@@ -1211,6 +1212,27 @@ MonoBehaviour:
   connectedTeleporter: {fileID: 991806631}
   onCooldown: 0
   cooldownTime: 2
+--- !u!65 &592659538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592659532}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &593471384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,6 +1918,7 @@ GameObject:
   - component: {fileID: 991806633}
   - component: {fileID: 991806632}
   - component: {fileID: 991806636}
+  - component: {fileID: 991806637}
   m_Layer: 0
   m_Name: Teleporter
   m_TagString: Untagged
@@ -1922,7 +1945,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &991806633
 MeshRenderer:
@@ -2004,6 +2027,27 @@ MonoBehaviour:
   connectedTeleporter: {fileID: 592659532}
   onCooldown: 0
   cooldownTime: 2
+--- !u!65 &991806637
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991806631}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1017200171
 PrefabInstance:
   m_ObjectHideFlags: 0
