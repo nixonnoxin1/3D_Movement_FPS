@@ -30,7 +30,7 @@ public class BulletScript : MonoBehaviour
             EnemyDeathSorce.transform.position = collision.gameObject.transform.position;
             AMS.PlayEnemyDeath();
 
-            Destroy(collision.collider.gameObject);
+            //Destroy(collision.collider.gameObject);
             FindObjectOfType<PlayerController>().EnemiesKilled++;
             FindObjectOfType<PlayerController>().CoinCount++;
         }

@@ -19,7 +19,8 @@ public class testScipts : MonoBehaviour
         //PrintODDandEVEN();
         //TimeInSeconds();
         //print("you are: " + number + " You " + CalculateNum() + " drink");
-        MoneyProblem();
+        //MoneyProblem();
+        PalindromeProblem();
     }
 
     // Update is called once per frame
@@ -108,6 +109,24 @@ public class testScipts : MonoBehaviour
             Temp = Temp % note;
         }
 
+    }
+
+    void PalindromeProblem()
+    {
+        string Palindrome = "racecar";
+
+        for (int i = 0; i < Palindrome.Length; i++)
+        {
+            print(i);
+            if (Palindrome[i] == Palindrome[Palindrome.Length - 1])
+            {
+                print("letter at " + i + " is the same as letter at " + (Palindrome.Length - (i - 1)));
+            }
+            else
+            {
+                print("letter at " + i + " is not the same as letter at " + (Palindrome.Length - (i - 1)));
+            }
+        }
     }
 
 }
