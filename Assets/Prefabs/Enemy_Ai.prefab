@@ -545,6 +545,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EHealthBarSprite: {fileID: 5075727684127863489}
+  currentHealth: 0
+  maxHealth: 100
+  EnemyDeathSorce: {fileID: 0}
+  AMS: {fileID: 0}
+  HealthbarImage: {fileID: 361225780753796473}
 --- !u!4 &7975530854450406388 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1a842ed944805464a81e4aad85343b67, type: 3}

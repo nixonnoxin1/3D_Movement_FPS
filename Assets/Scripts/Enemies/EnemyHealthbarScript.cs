@@ -14,6 +14,8 @@ public class EnemyHealthbarScript : MonoBehaviour
     public GameObject EnemyDeathSorce;
     public Audio_Manager_Script AMS;
 
+    public GameObject HealthbarImage;
+
     GameObject player;
 
     void Awake()
@@ -55,6 +57,6 @@ public class EnemyHealthbarScript : MonoBehaviour
 
     void FacePlayer()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - player.transform.position);
+        HealthbarImage.transform.rotation = Quaternion.LookRotation(HealthbarImage.transform.position - player.transform.position);
     }
 }
