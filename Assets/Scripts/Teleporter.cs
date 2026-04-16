@@ -27,7 +27,7 @@ public class Teleporter : MonoBehaviour
         {
             other.GetComponent<CharacterController>().enabled = false;
             connectedTeleporter.GetComponent<Teleporter>().onCooldown = true;
-            other.transform.position = connectedTeleporter.transform.position;
+            other.transform.position = connectedTeleporter.transform.position + other.transform.forward;
 
             StartCoroutine(Cooldown(cooldownTime));
             other.GetComponent<CharacterController>().enabled = true;

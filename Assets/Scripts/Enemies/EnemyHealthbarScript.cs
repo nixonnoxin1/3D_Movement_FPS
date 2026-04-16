@@ -14,8 +14,11 @@ public class EnemyHealthbarScript : MonoBehaviour
     public GameObject EnemyDeathSorce;
     public Audio_Manager_Script AMS;
 
+    GameObject player;
+
     void Awake()
     {
+        player = GameObject.FindWithTag("Player");
 
         EnemyDeathSorce = GameObject.Find("EnemyDeathSoundEffect");
         AMS = FindAnyObjectByType<Audio_Manager_Script>();
@@ -28,6 +31,7 @@ public class EnemyHealthbarScript : MonoBehaviour
     void Update()
     {
         destoryEnemy();
+        FacePlayer();
     }
 
 
@@ -47,5 +51,10 @@ public class EnemyHealthbarScript : MonoBehaviour
             Destroy(this.gameObject);
 
         }
+    }
+
+    void FacePlayer()
+    {
+        transform.rotation = Quaternion.LookRotation(transform.position - player.transform.position);
     }
 }
