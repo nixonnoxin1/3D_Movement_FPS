@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.WSA;
 
 public class testScipts : MonoBehaviour
@@ -21,13 +23,25 @@ public class testScipts : MonoBehaviour
         //print("you are: " + number + " You " + CalculateNum() + " drink");
         //MoneyProblem();
         //PalindromeProblem();
+        findHighestNumber();
     }
 
     // Update is called once per frame
-    void Update()
+    void findHighestNumber()
     {
-        
+        int[] playerScores = { -450, -1200, -340, -890, 2100, -150, 780, 1050, -2222222 };
+        int biggestnumber = playerScores[0];
+
+        for (int i = 1; i < playerScores.Length; i++)
+        {
+            if (playerScores[i] > biggestnumber)
+            {
+                biggestnumber = playerScores[i];
+            }
+        }
+        print("Real biggest: " + biggestnumber);
     }
+
 
     string CalculateNum()
     {
@@ -98,6 +112,8 @@ public class testScipts : MonoBehaviour
 
     void MoneyProblem()
     {
+        // need to redo this / try again
+
         number = Random.Range(1, 1000000);
         int Temp = number;
         int[] notes = { 100, 50, 20, 10, 5, 2, 1 };
@@ -130,5 +146,7 @@ public class testScipts : MonoBehaviour
 
         print(isPalindrome);
     }
+
+    // 450, 1200, 340, 890, 2100, 150, 780, 1050
 
 }
