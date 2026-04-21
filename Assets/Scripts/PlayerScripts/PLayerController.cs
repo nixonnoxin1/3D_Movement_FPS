@@ -91,16 +91,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Coin")
         {
-            HMS.PlayerHealth -= 20;
             AMS.PlayCoinCollect();
             Destroy(other.gameObject);
             CoinCount++;
         }
 
-        if (other.tag == "Enemy")
-        {
-            HMS.PlayerHealth -= 20;
-        }
+
 
     }
 

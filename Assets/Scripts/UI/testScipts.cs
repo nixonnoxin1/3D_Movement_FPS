@@ -23,7 +23,7 @@ public class testScipts : MonoBehaviour
         //print("you are: " + number + " You " + CalculateNum() + " drink");
         //MoneyProblem();
         //PalindromeProblem();
-        findHighestNumber();
+        //findHighestNumber();
     }
 
     // Update is called once per frame

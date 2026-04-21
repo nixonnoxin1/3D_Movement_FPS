@@ -15,10 +15,15 @@ public class GunShoot : MonoBehaviour
     public bool IsReloading = false;
     public float reloadTime;
 
-    public bool Rapid_fire;
-    public bool Double_Shot;
 
-    public string fireMode = "Single";
+
+    public GameObject AK_Gameobject;    
+    public bool hasAK;
+    int AKAmmo;
+    public GameObject Pistol;
+    int PistolAmmo;
+
+    public string GunType = "Pistol";
     public float BulletSpeed = 30.0f;
 
     float DelyFire = 0.0f;
@@ -34,10 +39,12 @@ public class GunShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hasAK = false;
         reloadTime = 0.8f;
         isShooting = false;
         Ammo = MaxAmmo;
-        Rapid_fire = false;
+        AKAmmo = Ammo;
+        PistolAmmo = Ammo;
         canShoot = true;
     }
 
@@ -45,11 +52,11 @@ public class GunShoot : MonoBehaviour
     void Update()
     {
         AmmoHandler();
-        ToggleFireModes();
+        ToggleGunTypes();
         SingleFire();
-        RapidFire();
+        //RapidFire();
         DoubleShotFire();
-        
+        AK();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -82,39 +89,76 @@ public class GunShoot : MonoBehaviour
         IsReloading = true;
         yield return new WaitForSeconds(reloadTime);
         Ammo = MaxAmmo;
+        if (GunType == "Pistol")
+        {
+            PistolAmmo = Ammo;
+        }
+        if (GunType == "AK")
+        {
+            AKAmmo = Ammo;
+        }
         canShoot = true;
         IsReloading = false;
     }
 
     void ToggleFireModes()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && fireMode != "Rapid_fire")
+        if (Input.GetKeyDown(KeyCode.Z) && GunType != "Rapid_fire")
         {
-            fireMode = "Rapid_fire";
-            print(fireMode);
+            GunType = "Rapid_fire";
+            print(GunType);
         }
-        else if (fireMode == "Rapid_fire" && Input.GetKeyDown(KeyCode.Z))
+        else if (GunType == "Rapid_fire" && Input.GetKeyDown(KeyCode.Z))
         {
             print("Rapid_fire off");
-            fireMode = "Single";
-        }else if (Input.GetKeyDown(KeyCode.X) && fireMode != "Double_Shot")
+            GunType = "Single";
+        }else if (Input.GetKeyDown(KeyCode.X) && GunType != "Double_Shot")
         {
-            fireMode = "Double_Shot";
-        }else if (fireMode == "Double_Shot" && Input.GetKeyDown(KeyCode.Z))
+            GunType = "Double_Shot";
+        }else if (GunType == "Double_Shot" && Input.GetKeyDown(KeyCode.Z))
         {
-            fireMode = "Single";
+            GunType = "Single";
         }
 
 
     }
+
+    void ToggleGunTypes()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && GunType == "AK" && IsReloading == false)
+        {
+            GunType = "Pistol";
+            MaxAmmo = 10;
+            Ammo = PistolAmmo;
+
+            Explosion.GetComponent<Transform>().position += BulletSpawnPoint.forward;
+
+            AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
+            this.transform.GetChild(0).gameObject.SetActive(true);
+
+        }
+        else if (hasAK == true && Input.GetKeyDown(KeyCode.Q) && GunType != "AK" && IsReloading == false)
+        {
+            GunType = "AK";
+            MaxAmmo = 30;
+            Ammo = AKAmmo;
+
+            Explosion.GetComponent<Transform>().position += -BulletSpawnPoint.position;
+
+            AK_Gameobject.GetComponent<MeshRenderer>().enabled = true;
+            this.transform.GetChild(0).gameObject.SetActive(false);
+
+        }
+    }
     void SingleFire()
     {
-        if (Input.GetMouseButton(0) && fireMode == "Single" && canShoot == true)
+        if (Input.GetMouseButton(0) && GunType == "Pistol" && canShoot == true)
         {
             DelyFire = 0.4f;
             StartCoroutine(TimeBetweenBullets(DelyFire));
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity); //create bullet
             Ammo--;
+            PistolAmmo = Ammo;
             AMS.PlayGunFire(); // play sound
             Recoil.SetTrigger("Recoil");
             Explosion.GetComponent<ParticleSystem>().Play();
@@ -126,7 +170,7 @@ public class GunShoot : MonoBehaviour
 
     void RapidFire()
     {
-        if (fireMode == "Rapid_fire" && Input.GetMouseButton(0) && canShoot == true)
+        if (GunType == "Rapid_fire" && Input.GetMouseButton(0) && canShoot == true)
         {
             DelyFire = 0.1f;
             StartCoroutine(TimeBetweenBullets(DelyFire));
@@ -144,7 +188,7 @@ public class GunShoot : MonoBehaviour
     
     void DoubleShotFire()
     {
-        if (fireMode == "Double_Shot" && Input.GetMouseButton(0) && canShoot == true)
+        if (GunType == "Double_Shot" && Input.GetMouseButton(0) && canShoot == true)
         {
             DelyFire = 0.67f;
             StartCoroutine(TimeBetweenBullets(DelyFire));
@@ -173,8 +217,26 @@ public class GunShoot : MonoBehaviour
         }
     }
 
+    void AK()
+    {
+        if (GunType == "AK" && Input.GetMouseButton(0) && canShoot == true)
+        {
+            DelyFire = 0.1f;
+            StartCoroutine(TimeBetweenBullets(DelyFire));
+            GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
+            Ammo--;
+            AKAmmo = Ammo;
+            AMS.PlayGunFire(); // play sound
+            Explosion.GetComponent<ParticleSystem>().Play();// play explosion
+            bullet.SetActive(true);
+            bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
+            StartCoroutine(Wait(bullet));
+        }
+    }
+
     void AmmoHandler()
     {
+
         if (Ammo <= 0)
         {
             canShoot = false;
@@ -184,6 +246,8 @@ public class GunShoot : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && IsReloading == false && isShooting == false && Ammo < MaxAmmo)
         {
             StartCoroutine(TimeBetweenReload(reloadTime));
+
         }
+
     }
 }
