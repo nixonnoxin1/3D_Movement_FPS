@@ -59,4 +59,17 @@ public class EnemyHealthbarScript : MonoBehaviour
     {
         HealthbarImage.transform.rotation = Quaternion.LookRotation(HealthbarImage.transform.position - player.transform.position);
     }
+
+    public void TakeDamage(float amount)
+    {
+        currentHealth -= amount;
+
+        if (currentHealth <= 0)
+        {
+            destoryEnemy();
+        }
+
+    }
+
+
 }

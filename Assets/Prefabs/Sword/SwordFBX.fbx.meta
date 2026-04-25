@@ -3,7 +3,27 @@ guid: fbbec3749f8407b458e1eaaa5cc487ad
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Maya_Lambert1
+    second: {fileID: 2100000, guid: d264f8bdb6aed4a428239a966db9c34e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Maya_Lambert2
+    second: {fileID: 2100000, guid: b5df824bbe837a9498bb3fad3179b5ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Maya_Lambert3
+    second: {fileID: 2100000, guid: a1645f8b924ad76428868ecb8bc0be7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: openPBR_shader1
+    second: {fileID: 2100000, guid: 056bdaa9bf60a4a4aaa2d5cdbf95cd25, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -2011,6 +2011,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636699705}
   m_CullTransparentMesh: 1
+--- !u!1 &669297977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 6b81820889ea05e47933ccca56f75ba8, type: 3}
+  m_PrefabInstance: {fileID: 1017200171}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &677638117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,7 +2691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 6b81820889ea05e47933ccca56f75ba8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3835,6 +3840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1416652181}
   - component: {fileID: 1416652182}
+  - component: {fileID: 1416652183}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -3881,12 +3887,39 @@ MonoBehaviour:
   IsReloading: 0
   reloadTime: 1
   AK_Gameobject: {fileID: 1804217361}
-  hasAK: 1
   Pistol: {fileID: 364497533}
+  Sword_Gameobject: {fileID: 1444780659}
+  hasAK: 1
   GunType: Pistol
   BulletSpeed: 30
   Ammo: 0
   MaxAmmo: 10
+  AMS: {fileID: 1493285015}
+--- !u!114 &1416652183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416652180}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff3d0a5ca83dea4393e1679ae58a46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletSpawnPoint: {fileID: 469591777}
+  BulletPrefab: {fileID: 1493374321196646332, guid: d5dcacf14588d9b4885819a7cd6c5d0f, type: 3}
+  BulletSpeed: 30
+  BulletDamage: 25
+  Explosion: {fileID: 5865786}
+  Recoil: {fileID: 1017200174}
+  AK_Gameobject: {fileID: 1804217361}
+  Pistol_Gameobject: {fileID: 669297977}
+  Sword_Gameobject: {fileID: 1444780659}
+  hasAK: 0
+  Ammo: 0
+  MaxAmmo: 10
+  IsReloading: 0
   AMS: {fileID: 1493285015}
 --- !u!1 &1429006193 stripped
 GameObject:
@@ -4025,6 +4058,45 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
   m_PrefabInstance: {fileID: 1801569582}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1444780664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444780659}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.037240848, y: 0.14406471, z: 0.05386226}
+  m_Center: {x: 0.00360193, y: 0.06126459, z: -0.004630551}
+--- !u!114 &1444780665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444780659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be240b8039d0d9044a1acc1ac598beab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwordIsOut: 0
+  isBlocking: 0
+  isAttacking: 0
+  AttackCooldown: 1
+  BlockCooldown: 1
+  SwordAnimator: {fileID: 1444780660}
 --- !u!1 &1452250243
 GameObject:
   m_ObjectHideFlags: 0
@@ -4050,7 +4122,7 @@ Transform:
   m_GameObject: {fileID: 1452250243}
   serializedVersion: 2
   m_LocalRotation: {x: 0.026672486, y: 0.93267107, z: -0.14491142, w: -0.32926288}
-  m_LocalPosition: {x: 0.821, y: -0.108, z: 1}
+  m_LocalPosition: {x: 0.821, y: -0.17, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5139,19 +5211,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -58.649376
+      value: -29.482124
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -78.78773
+      value: -45.554615
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -12.000686
+      value: 32.37914
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d264f8bdb6aed4a428239a966db9c34e, type: 2}
     - target: {fileID: 919132149155446097, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
       propertyPath: m_Name
       value: SwordFBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5160,6 +5244,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1444780660}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1444780664}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1444780665}
   m_SourcePrefab: {fileID: 100100000, guid: fbbec3749f8407b458e1eaaa5cc487ad, type: 3}
 --- !u!1 &1804217361
 GameObject:

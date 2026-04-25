@@ -15,13 +15,17 @@ public class GunShoot : MonoBehaviour
     public bool IsReloading = false;
     public float reloadTime;
 
-
-
-    public GameObject AK_Gameobject;    
-    public bool hasAK;
-    int AKAmmo;
+    [Header("Weapons")]
+    public GameObject AK_Gameobject;  
     public GameObject Pistol;
+    public GameObject Sword_Gameobject;
+
+    public bool hasAK;
+
+
+    int AKAmmo;
     int PistolAmmo;
+    
 
     public string GunType = "Pistol";
     public float BulletSpeed = 30.0f;
@@ -131,6 +135,10 @@ public class GunShoot : MonoBehaviour
             MaxAmmo = 10;
             Ammo = PistolAmmo;
 
+            Sword_Gameobject.GetComponent<SwordSript>().SwordIsOut = false;
+            Sword_Gameobject.SetActive(false);
+
+            print("runing1");
             Explosion.GetComponent<Transform>().position += BulletSpawnPoint.forward;
 
             AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
@@ -143,13 +151,31 @@ public class GunShoot : MonoBehaviour
             MaxAmmo = 30;
             Ammo = AKAmmo;
 
+            Sword_Gameobject.GetComponent<SwordSript>().SwordIsOut = false;
+            Sword_Gameobject.SetActive(false);
+
+            print("runing2");
+
             Explosion.GetComponent<Transform>().position += -BulletSpawnPoint.position;
 
             AK_Gameobject.GetComponent<MeshRenderer>().enabled = true;
             this.transform.GetChild(0).gameObject.SetActive(false);
 
         }
+        else if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            GunType = "Sword";
+
+            AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
+            this.transform.GetChild(0).gameObject.SetActive(false);
+
+            Sword_Gameobject.GetComponent<SwordSript>().SwordIsOut = true;
+            Sword_Gameobject.SetActive(true);
+
+        }
     }
+
+
     void SingleFire()
     {
         if (Input.GetMouseButton(0) && GunType == "Pistol" && canShoot == true)
@@ -233,6 +259,7 @@ public class GunShoot : MonoBehaviour
             StartCoroutine(Wait(bullet));
         }
     }
+
 
     void AmmoHandler()
     {
