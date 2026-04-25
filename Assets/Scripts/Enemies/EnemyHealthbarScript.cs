@@ -18,6 +18,9 @@ public class EnemyHealthbarScript : MonoBehaviour
 
     GameObject player;
 
+    public float invincibleTime = 0.5f;
+    float lastHitTime = -999f;          // start in the past so first hit always lands
+
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -62,7 +65,13 @@ public class EnemyHealthbarScript : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        // Ignore damage if still in invincibility window
+        if (Time.time - lastHitTime < invincibleTime) return;
+
+        lastHitTime = Time.time;
+
         currentHealth -= amount;
+        UpdateHealthBar();
 
         if (currentHealth <= 0)
         {

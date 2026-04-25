@@ -2363,7 +2363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1535836835}
   ForeGround: {fileID: 1358099717}
-  PlayerHealth: 100
+  PlayerHealth: 1000000
   MaxPlayerHealth: 0
 --- !u!82 &925443902 stripped
 AudioSource:
@@ -4097,6 +4097,7 @@ MonoBehaviour:
   AttackCooldown: 1
   BlockCooldown: 1
   SwordAnimator: {fileID: 1444780660}
+  SwordDamage: 0
 --- !u!1 &1452250243
 GameObject:
   m_ObjectHideFlags: 0
