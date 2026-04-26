@@ -40,7 +40,13 @@ public class GunShoot : MonoBehaviour
 
 
     public Audio_Manager_Script AMS;
+    public SwordSript swordSript;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        
+    }
+
     void Start()
     {
         hasAK = false;
@@ -135,7 +141,7 @@ public class GunShoot : MonoBehaviour
             MaxAmmo = 10;
             Ammo = PistolAmmo;
 
-            Sword_Gameobject.GetComponent<SwordSript>().SwordIsOut = false;
+            swordSript.SwordIsOut = false;
             Sword_Gameobject.SetActive(false);
 
             print("runing1");
@@ -151,7 +157,7 @@ public class GunShoot : MonoBehaviour
             MaxAmmo = 30;
             Ammo = AKAmmo;
 
-            Sword_Gameobject.GetComponent<SwordSript>().SwordIsOut = false;
+            swordSript.SwordIsOut = false;
             Sword_Gameobject.SetActive(false);
 
             print("runing2");
@@ -169,7 +175,7 @@ public class GunShoot : MonoBehaviour
             AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
             this.transform.GetChild(0).gameObject.SetActive(false);
 
-            Sword_Gameobject.GetComponent<SwordSript>().SwordIsOut = true;
+            swordSript.SwordIsOut = true;
             Sword_Gameobject.SetActive(true);
 
         }

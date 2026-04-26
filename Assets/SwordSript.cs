@@ -57,13 +57,14 @@ public class SwordSript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            SwordAnimator.SetTrigger("isBlockingStart");
+            //SwordAnimator.SetTrigger("isBlockingStart");
         }
 
-        if (Input.GetMouseButton(1) && isBlocking == false)
+        while (Input.GetMouseButton(1) && !isBlocking)
         {
-            print("blocking");
+
             isBlocking = true;
+            print(isBlocking);
             //play Blocking start animation
             SwordAnimator.SetBool("isBlocking", true);
             //player takes no damage
@@ -71,7 +72,8 @@ public class SwordSript : MonoBehaviour
             //play idle (loop)
 
 
-        } else if (Input.GetMouseButtonUp(1))
+        } 
+        if (Input.GetMouseButtonUp(1))
         {
             print("Stoped blocking");
             SwordAnimator.SetBool("isBlocking", false);
@@ -92,8 +94,10 @@ public class SwordSript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print(other.gameObject);
         if (other.CompareTag("Enemy") && isAttacking)
         {
+            print(other.gameObject);
             other.GetComponent<EnemyHealthbarScript>().TakeDamage(SwordDamage);
         }
     }
