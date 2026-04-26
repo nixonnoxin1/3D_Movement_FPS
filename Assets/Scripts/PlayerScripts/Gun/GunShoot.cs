@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static WeaponManager;
 
 public class GunShoot : MonoBehaviour
 {
@@ -25,14 +26,18 @@ public class GunShoot : MonoBehaviour
 
     int AKAmmo;
     int PistolAmmo;
-    
 
+
+    public enum WeaponType { Pistol, AK, Sword }
     public string GunType = "Pistol";
+    private WeaponType currentWeapon;
+
+
     public float BulletSpeed = 30.0f;
 
     float DelyFire = 0.0f;
 
-    bool canShoot;
+    public bool canShoot;
     bool isShooting;
 
     public int Ammo;
@@ -64,7 +69,6 @@ public class GunShoot : MonoBehaviour
         AmmoHandler();
         ToggleGunTypes();
         SingleFire();
-        //RapidFire();
         DoubleShotFire();
         AK();
     }
@@ -111,80 +115,71 @@ public class GunShoot : MonoBehaviour
         IsReloading = false;
     }
 
-    void ToggleFireModes()
-    {
-        if (Input.GetKeyDown(KeyCode.Z) && GunType != "Rapid_fire")
-        {
-            GunType = "Rapid_fire";
-            print(GunType);
-        }
-        else if (GunType == "Rapid_fire" && Input.GetKeyDown(KeyCode.Z))
-        {
-            print("Rapid_fire off");
-            GunType = "Single";
-        }else if (Input.GetKeyDown(KeyCode.X) && GunType != "Double_Shot")
-        {
-            GunType = "Double_Shot";
-        }else if (GunType == "Double_Shot" && Input.GetKeyDown(KeyCode.Z))
-        {
-            GunType = "Single";
-        }
-
-
-    }
 
     void ToggleGunTypes()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && GunType == "AK" && IsReloading == false)
+        if (IsReloading || isShooting || swordSript.isAttacking || swordSript.isBlocking) return;
+
+
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            GunType = "Pistol";
-            MaxAmmo = 10;
-            Ammo = PistolAmmo;
-
-            swordSript.SwordIsOut = false;
-            Sword_Gameobject.SetActive(false);
-
-            print("runing1");
-            Explosion.GetComponent<Transform>().position += BulletSpawnPoint.forward;
-
-            AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
-            this.transform.GetChild(0).gameObject.SetActive(true);
-
+            if (currentWeapon == WeaponType.AK)
+                SwitchWeapon(WeaponType.Pistol);
+            else if (hasAK)
+                SwitchWeapon(WeaponType.AK);
         }
-        else if (hasAK == true && Input.GetKeyDown(KeyCode.Q) && GunType != "AK" && IsReloading == false)
+
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            GunType = "AK";
-            MaxAmmo = 30;
-            Ammo = AKAmmo;
-
-            swordSript.SwordIsOut = false;
-            Sword_Gameobject.SetActive(false);
-
-            print("runing2");
-
-            Explosion.GetComponent<Transform>().position += -BulletSpawnPoint.position;
-
-            AK_Gameobject.GetComponent<MeshRenderer>().enabled = true;
-            this.transform.GetChild(0).gameObject.SetActive(false);
-
+            if (currentWeapon != WeaponType.Sword)
+                SwitchWeapon(WeaponType.Sword);
+            else if (currentWeapon == WeaponType.Sword)
+                SwitchWeapon(WeaponType.Pistol);
         }
-        else if (Input.GetKeyDown(KeyCode.Tab))
+    }
+
+    void SwitchWeapon(WeaponType newWeapon)
+    {
+        // Disable all first
+        AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
+        Pistol.SetActive(false);
+        Sword_Gameobject.SetActive(false);
+        swordSript.SwordIsOut = false;
+
+        currentWeapon = newWeapon;
+
+        switch (newWeapon)
         {
-            GunType = "Sword";
+            case WeaponType.Pistol:
+                GunType = "Pistol";
+                MaxAmmo = 10;
+                Ammo = PistolAmmo;
+                canShoot = PistolAmmo > 0;  // restore canShoot based on saved ammo
+                Pistol.SetActive(true);
+                break;
 
-            AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
-            this.transform.GetChild(0).gameObject.SetActive(false);
+            case WeaponType.AK:
+                GunType = "AK";
+                MaxAmmo = 30;
+                Ammo = AKAmmo;
+                canShoot = AKAmmo > 0;      // restore canShoot based on saved ammo
+                AK_Gameobject.GetComponent<MeshRenderer>().enabled = true;
+                break;
 
-            swordSript.SwordIsOut = true;
-            Sword_Gameobject.SetActive(true);
-
+            case WeaponType.Sword:
+                GunType = "Sword";
+                swordSript.SwordIsOut = true;
+                Sword_Gameobject.SetActive(true);
+                break;
         }
     }
 
 
-    void SingleFire()
+
+
+    void SingleFire() // Pistol
     {
-        if (Input.GetMouseButton(0) && GunType == "Pistol" && canShoot == true)
+        if (Input.GetMouseButton(0) && GunType == "Pistol" && canShoot)
         {
             DelyFire = 0.4f;
             StartCoroutine(TimeBetweenBullets(DelyFire));
@@ -197,24 +192,6 @@ public class GunShoot : MonoBehaviour
             bullet.SetActive(true);// set bullet to true so ytou can see it
             bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;//set bullet velocity
             StartCoroutine(Wait(bullet));// time in between bullet so you cant rapidfire
-        }
-    }
-
-    void RapidFire()
-    {
-        if (GunType == "Rapid_fire" && Input.GetMouseButton(0) && canShoot == true)
-        {
-            DelyFire = 0.1f;
-            StartCoroutine(TimeBetweenBullets(DelyFire));
-            GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
-            Ammo--;
-            AMS.PlayGunFire(); // play sound
-            Explosion.GetComponent<ParticleSystem>().Play();// play explosion
-            Recoil.SetTrigger("Recoil"); // play recoil animation
-            bullet.SetActive(true);
-            bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;
-            StartCoroutine(Wait(bullet));
-
         }
     }
     
@@ -258,6 +235,7 @@ public class GunShoot : MonoBehaviour
             GameObject bullet = Instantiate(BulletPre, BulletSpawnPoint.position, Quaternion.identity);
             Ammo--;
             AKAmmo = Ammo;
+            //canShoot = AKAmmo > 0;      // restore canShoot based on saved ammo
             AMS.PlayGunFire(); // play sound
             Explosion.GetComponent<ParticleSystem>().Play();// play explosion
             bullet.SetActive(true);
@@ -269,14 +247,11 @@ public class GunShoot : MonoBehaviour
 
     void AmmoHandler()
     {
-
-        if (Ammo <= 0)
-        {
-            canShoot = false;
-        }
+        if (AKAmmo <= 0 && currentWeapon == WeaponType.AK) canShoot = false;
+        else if (PistolAmmo <= 0 && currentWeapon == WeaponType.Pistol) canShoot = false;
 
 
-        if (Input.GetKeyDown(KeyCode.R) && IsReloading == false && isShooting == false && Ammo < MaxAmmo)
+        if (Input.GetKeyDown(KeyCode.R) && !IsReloading && !isShooting && Ammo < MaxAmmo)
         {
             StartCoroutine(TimeBetweenReload(reloadTime));
 

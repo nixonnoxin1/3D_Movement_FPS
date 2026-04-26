@@ -33,7 +33,7 @@ public class UI_Handler : MonoBehaviour
 
         EnemiesKilledText.text = "Enemies Killed: " + FindObjectOfType<PlayerController>().EnemiesKilled;
         CoinCountText.text = "Coins: " + FindAnyObjectByType<PlayerController>().CoinCount;
-        BulletCounterText.text = FindAnyObjectByType<WeaponManager>().Ammo + "/" + FindAnyObjectByType<WeaponManager>().MaxAmmo;
+        BulletCounterText.text = FindAnyObjectByType<GunShoot>().Ammo + "/" + FindAnyObjectByType<GunShoot>().MaxAmmo;
         TimeCounter.text = "Time: " + Time.deltaTime;
     }
 
