@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,7 @@ public class SwordSript : MonoBehaviour
 
     public bool isBlocking;
     public bool isAttacking;
+    public bool blockInputHeld;
 
     [Header("CoolDowns")]
     public float AttackCooldown;
@@ -30,15 +31,28 @@ public class SwordSript : MonoBehaviour
     {
         Blocking();
 
-        if (Input.GetMouseButtonDown(0) && SwordIsOut == true && isAttacking == false)
+        if (Input.GetMouseButtonDown(0) && SwordIsOut && !isAttacking)
         {
-            Attack();
+            SingleAttack();
         }
+        if (Input.GetMouseButton(0) && SwordIsOut && !isAttacking)
+        {
+            TwoSwingAttack();
+        }
+
+
+    }
+    public void TwoSwingAttack()
+    {
+        if (isAttacking) return; // prevent spamming
+        print("Two swing attack");
+        GetComponent<BoxCollider>().enabled = true;
+        SwordAnimator.SetTrigger("TwoSwings");
+        StartCoroutine(AttackCooldownTimer(AttackCooldown + (AttackCooldown / 1.5f)));
     }
 
-    public void Attack()
+    public void SingleAttack()
     {
-        print("attacking");
         GetComponent<BoxCollider>().enabled = true;
         SwordAnimator.SetTrigger("SwordAttack");
         StartCoroutine(AttackCooldownTimer(AttackCooldown));
@@ -55,28 +69,22 @@ public class SwordSript : MonoBehaviour
 
     public void Blocking()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            //SwordAnimator.SetTrigger("isBlockingStart");
-        }
 
-        while (Input.GetMouseButton(1) && !isBlocking)
+        if (Input.GetMouseButtonDown(1) && !isBlocking && !isAttacking)
         {
 
+            blockInputHeld = true;
             isBlocking = true;
-            print(isBlocking);
-            //play Blocking start animation
-            SwordAnimator.SetBool("isBlocking", true);
-            //player takes no damage
-
-            //play idle (loop)
+            SwordAnimator.SetTrigger("StartBlocking");  // plays StartBlock animation
+            SwordAnimator.SetBool("isBlocking", true);  // transitions into BlockIdle after StartBlock finishes
+            print("Started blocking");
 
 
-        } 
-        if (Input.GetMouseButtonUp(1))
+        } else if (Input.GetMouseButtonUp(1))
         {
-            print("Stoped blocking");
-            SwordAnimator.SetBool("isBlocking", false);
+            blockInputHeld = false;
+            SwordAnimator.SetBool("isBlocking", false); // triggers EndBlock → Idle transition
+            print("Stopped blocking");
             StartCoroutine(BlockCooldownTimer(BlockCooldown));
         }
 

@@ -983,6 +983,7 @@ MonoBehaviour:
   SwordIsOut: 0
   isBlocking: 0
   isAttacking: 0
+  blockInputHeld: 0
   AttackCooldown: 1
   BlockCooldown: 1
   SwordAnimator: {fileID: 911082027}
@@ -1002,7 +1003,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
@@ -4172,6 +4173,7 @@ MonoBehaviour:
   SwordIsOut: 0
   isBlocking: 0
   isAttacking: 0
+  blockInputHeld: 0
   AttackCooldown: 1
   BlockCooldown: 1
   SwordAnimator: {fileID: 1444780660}
