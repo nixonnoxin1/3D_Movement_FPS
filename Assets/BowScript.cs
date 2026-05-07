@@ -12,10 +12,13 @@ public class BowScript : MonoBehaviour
 
     [Header("CoolDowns")]
     public float AttackCooldown;
-
-
+    public float ArrowSpeed;
+    
     [Header("Components")]
     public Animator BowAnimator;
+    public GameObject Arrow;
+    public Transform ArrowSpawn;
+
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +35,7 @@ public class BowScript : MonoBehaviour
     public void Attack()
     {
 
-        if (Input.GetMouseButtonDown(1) && !isAttacking && BowIsOut)
+        if (Input.GetMouseButtonDown(0) && !isAttacking && BowIsOut)
         {
 
             AttackInputHeld = true;
@@ -42,11 +45,18 @@ public class BowScript : MonoBehaviour
 
 
         }
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(0) && !isAttacking && BowIsOut)
         {
             AttackInputHeld = false;
-            BowAnimator.ResetTrigger("StartShooting"); // clear any leftover trigger
+            BowAnimator.ResetTrigger("StartShooting");
             BowAnimator.SetBool("IsHolding", false);
+
+            Vector3 shootDirection = Camera.main.transform.forward;
+            Quaternion arrowRotation = Quaternion.LookRotation(shootDirection);
+
+            GameObject ArrowObject = Instantiate(Arrow, ArrowSpawn.position, arrowRotation);
+            ArrowObject.GetComponent<Rigidbody>().velocity = shootDirection * ArrowSpeed;
+
             StartCoroutine(AttackCooldownTimer(AttackCooldown));
         }
 

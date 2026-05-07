@@ -47,11 +47,8 @@ public class GunShoot : MonoBehaviour
 
     public Audio_Manager_Script AMS;
     public SwordSript swordSript;
+    public BowScript bowScript;
     // Start is called before the first frame update
-    private void Awake()
-    {
-        
-    }
 
     void Start()
     {
@@ -145,7 +142,9 @@ public class GunShoot : MonoBehaviour
         AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
         Pistol.SetActive(false);
         Sword_Gameobject.SetActive(false);
+        Bow_Gameobject.SetActive(false);
         swordSript.SwordIsOut = false;
+        bowScript.BowIsOut = false;
 
         currentWeapon = newWeapon;
 
@@ -171,6 +170,11 @@ public class GunShoot : MonoBehaviour
                 GunType = "Sword";
                 swordSript.SwordIsOut = true;
                 Sword_Gameobject.SetActive(true);
+                break;
+            case WeaponType.Bow:
+                GunType = "Bow";
+                bowScript.BowIsOut = true;
+                Bow_Gameobject.SetActive(true);
                 break;
         }
     }
