@@ -28,7 +28,7 @@ public class EnemyBulletScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player") && !FindAnyObjectByType<SwordSript>().isBlocking)
+        if (collision.collider.CompareTag("Player") && !collision.collider.GetComponentInChildren<SwordSript>().isBlocking)
         {
             //print("Player Hit!");
             HMS.PlayerHealth -= Damage;

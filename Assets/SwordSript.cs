@@ -102,10 +102,8 @@ public class SwordSript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject);
         if (other.CompareTag("Enemy") && isAttacking)
         {
-            print(other.gameObject);
             other.GetComponent<EnemyHealthbarScript>().TakeDamage(SwordDamage);
         }
     }
