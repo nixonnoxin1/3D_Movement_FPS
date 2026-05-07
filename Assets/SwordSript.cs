@@ -45,7 +45,7 @@ public class SwordSript : MonoBehaviour
     public void TwoSwingAttack()
     {
         if (isAttacking) return; // prevent spamming
-        print("Two swing attack");
+        //print("Two swing attack");
         GetComponent<BoxCollider>().enabled = true;
         SwordAnimator.SetTrigger("TwoSwings");
         StartCoroutine(AttackCooldownTimer(AttackCooldown + (AttackCooldown / 1.5f)));
@@ -77,14 +77,14 @@ public class SwordSript : MonoBehaviour
             isBlocking = true;
             SwordAnimator.SetTrigger("StartBlocking");  // plays StartBlock animation
             SwordAnimator.SetBool("isBlocking", true);  // transitions into BlockIdle after StartBlock finishes
-            print("Started blocking");
+            //print("Started blocking");
 
 
         } else if (Input.GetMouseButtonUp(1))
         {
             blockInputHeld = false;
             SwordAnimator.SetBool("isBlocking", false); // triggers EndBlock → Idle transition
-            print("Stopped blocking");
+            //print("Stopped blocking");
             StartCoroutine(BlockCooldownTimer(BlockCooldown));
         }
 

@@ -20,6 +20,7 @@ public class GunShoot : MonoBehaviour
     public GameObject AK_Gameobject;  
     public GameObject Pistol;
     public GameObject Sword_Gameobject;
+    public GameObject Bow_Gameobject;
 
     public bool hasAK;
 
@@ -28,7 +29,7 @@ public class GunShoot : MonoBehaviour
     int PistolAmmo;
 
 
-    public enum WeaponType { Pistol, AK, Sword }
+    public enum WeaponType { Pistol, AK, Sword, Bow }
     public string GunType = "Pistol";
     private WeaponType currentWeapon;
 
@@ -134,7 +135,7 @@ public class GunShoot : MonoBehaviour
             if (currentWeapon != WeaponType.Sword)
                 SwitchWeapon(WeaponType.Sword);
             else if (currentWeapon == WeaponType.Sword)
-                SwitchWeapon(WeaponType.Pistol);
+                SwitchWeapon(WeaponType.Bow);
         }
     }
 
