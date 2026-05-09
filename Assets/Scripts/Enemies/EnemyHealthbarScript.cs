@@ -58,6 +58,15 @@ public class EnemyHealthbarScript : MonoBehaviour
         }
     }
 
+    void LootDrop()
+    {
+        int SpawnLoot = Random.RandomRange(1, 3);
+        if (SpawnLoot == 1)
+        {
+
+        }
+    }
+
     void FacePlayer()
     {
         HealthbarImage.transform.rotation = Quaternion.LookRotation(HealthbarImage.transform.position - player.transform.position);

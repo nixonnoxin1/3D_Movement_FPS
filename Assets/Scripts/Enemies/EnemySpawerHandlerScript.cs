@@ -28,6 +28,7 @@ public class EnemySpawerHandlerScript : MonoBehaviour
             SpawnLocation();
             var Enemy = Instantiate(EnemyPre, new Vector3(X, 1, Z), Quaternion.identity);
             enemies.Add(Enemy);
+            Enemy.transform.SetParent(transform, true);
         }
         
 
@@ -42,10 +43,10 @@ public class EnemySpawerHandlerScript : MonoBehaviour
     private void SpawnLocation()
     {
         //pick number between XRange
-        int XChosenValue = Random.Range(-22, 17);
+        int XChosenValue = Random.Range(-35, 35);
         //set SpawnScale to that number
         X = XChosenValue;
-        int ZChosenValue = Random.Range(-17, 24);
+        int ZChosenValue = Random.Range(-30, 30);
         Z = ZChosenValue;
 
     }
@@ -55,9 +56,24 @@ public class EnemySpawerHandlerScript : MonoBehaviour
         enemies.RemoveAll(e => e == null);
         if (enemies.Count == 0)
         {
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentSceneIndex + 1);
+            NumberOfEnemies += 2;
+            SpawnNextWave(NumberOfEnemies);
+            //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            //SceneManager.LoadScene(currentSceneIndex + 1);
         }
         
     }
+
+    public void SpawnNextWave(int NumberOfEnemiesInWave)
+    {
+        for (int i = 0; i < NumberOfEnemiesInWave; i++)
+        {
+            SpawnLocation();
+            var Enemy = Instantiate(EnemyPre, new Vector3(X, 2, Z), Quaternion.identity);
+            enemies.Add(Enemy);
+            Enemy.transform.SetParent(transform, true);
+        }
+
+    }
+
 }
