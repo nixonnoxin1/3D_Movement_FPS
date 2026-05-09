@@ -20,13 +20,16 @@ public class HealthManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ForeGround.fillAmount = PlayerHealth / 100;
-        killPlayer();
+
     }
 
 
-    public void killPlayer()
+    public void killPlayer(float damage)
     {
+        PlayerHealth -= damage;
+
+        ForeGround.fillAmount = PlayerHealth / 100;
+
         if (PlayerHealth <= 0)
         {
             Destroy(Player.gameObject);

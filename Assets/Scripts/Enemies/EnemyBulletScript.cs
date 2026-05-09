@@ -31,7 +31,7 @@ public class EnemyBulletScript : MonoBehaviour
         if (collision.collider.CompareTag("Player") && !collision.collider.GetComponentInChildren<SwordSript>().isBlocking)
         {
             //print("Player Hit!");
-            HMS.PlayerHealth -= Damage;
+            HMS.killPlayer(Damage);
             //print(HMS.PlayerHealth);
         }
     }

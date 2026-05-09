@@ -17,7 +17,6 @@ public class EnemyHealthbarScript : MonoBehaviour
     public GameObject HealthbarImage;
 
     GameObject player;
-    GameObject PickupGO;
     public List<GameObject> PickUps = new List<GameObject>();
 
     public float invincibleTime = 0.5f;
