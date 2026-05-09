@@ -1210,8 +1210,8 @@ MonoBehaviour:
   BowIsOut: 0
   isAttacking: 0
   AttackInputHeld: 0
-  AttackCooldown: 1
-  ArrowSpeed: 10
+  AttackCooldown: 1.5
+  ArrowSpeed: 50
   BowAnimator: {fileID: 340535392}
   Arrow: {fileID: 7841118526029144678, guid: 63b3514345a5a0440acc0bd7efe6efa5, type: 3}
   ArrowSpawn: {fileID: 28423876}

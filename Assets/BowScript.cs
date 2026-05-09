@@ -39,14 +39,14 @@ public class BowScript : MonoBehaviour
         {
 
             AttackInputHeld = true;
-            BowAnimator.SetTrigger("StartShooting");  // plays StartBlock animation
-            BowAnimator.SetBool("IsHolding", true);  // transitions into BlockIdle after StartBlock finishes
-            //print("Started blocking");
+            BowAnimator.SetTrigger("StartShooting");  
+            BowAnimator.SetBool("IsHolding", true); 
 
 
         }
-        else if (Input.GetMouseButtonUp(0) && !isAttacking && BowIsOut)
+        else if (Input.GetMouseButtonUp(0) && !isAttacking && AttackInputHeld)
         {
+
             AttackInputHeld = false;
             BowAnimator.ResetTrigger("StartShooting");
             BowAnimator.SetBool("IsHolding", false);
