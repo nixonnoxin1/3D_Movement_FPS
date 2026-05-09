@@ -65,7 +65,7 @@ public class EnemyHealthbarScript : MonoBehaviour
     void LootDrop()
     {
         int SpawnLoot = Random.Range(0, PickUps.Count); // auto scales to list size
-        var Loot = Instantiate(PickUps[SpawnLoot], new Vector3(transform.position.x, 1 , transform.position.z), Quaternion.identity);
+        var Loot = Instantiate(PickUps[SpawnLoot], new Vector3(transform.position.x, transform.position.y + 1 , transform.position.z), Quaternion.identity);
         Loot.SetActive(true);
     }
 

@@ -6,6 +6,7 @@ public class BowScript : MonoBehaviour
 {
     [Header("Boolans")]
     public bool BowIsOut;
+    public bool MultiShot;
 
     public bool isAttacking;
     public bool AttackInputHeld;
@@ -23,7 +24,7 @@ public class BowScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        MultiShot = false;
     }
 
     // Update is called once per frame
@@ -34,44 +35,49 @@ public class BowScript : MonoBehaviour
 
     public void Attack()
     {
-        if (Input.GetMouseButton(0) && !isAttacking && BowIsOut && AttackCooldown < 0.2)
+        if (!MultiShot && !isAttacking && BowIsOut)
         {
-            AttackInputHeld = false;
-            BowAnimator.ResetTrigger("StartShooting");
-            BowAnimator.SetBool("IsHolding", false);
+            if (Input.GetMouseButton(0) && AttackCooldown < 0.2)
+            {
+                AttackInputHeld = false;
+                BowAnimator.ResetTrigger("StartShooting");
+                BowAnimator.SetBool("IsHolding", false);
 
-            Vector3 shootDirection = Camera.main.transform.forward;
-            Quaternion arrowRotation = Quaternion.LookRotation(shootDirection);
+                Vector3 shootDirection = Camera.main.transform.forward;
+                Quaternion arrowRotation = Quaternion.LookRotation(shootDirection);
 
-            GameObject ArrowObject = Instantiate(Arrow, ArrowSpawn.position, arrowRotation);
-            ArrowObject.GetComponent<Rigidbody>().velocity = shootDirection * ArrowSpeed;
+                GameObject ArrowObject = Instantiate(Arrow, ArrowSpawn.position, arrowRotation);
+                ArrowObject.GetComponent<Rigidbody>().velocity = shootDirection * ArrowSpeed;
 
-            StartCoroutine(AttackCooldownTimer(AttackCooldown));
+                StartCoroutine(AttackCooldownTimer(AttackCooldown));
+            }
+            else if (Input.GetMouseButtonDown(0) && AttackCooldown > 0.2)
+            {
+
+                AttackInputHeld = true;
+                BowAnimator.SetTrigger("StartShooting");
+                BowAnimator.SetBool("IsHolding", true);
+
+
+            }
+            else if (Input.GetMouseButtonUp(0) && AttackCooldown > 0.2)
+            {
+
+                AttackInputHeld = false;
+                BowAnimator.ResetTrigger("StartShooting");
+                BowAnimator.SetBool("IsHolding", false);
+
+                Vector3 shootDirection = Camera.main.transform.forward;
+                Quaternion arrowRotation = Quaternion.LookRotation(shootDirection);
+
+                GameObject ArrowObject = Instantiate(Arrow, ArrowSpawn.position, arrowRotation);
+                ArrowObject.GetComponent<Rigidbody>().velocity = shootDirection * ArrowSpeed;
+
+                StartCoroutine(AttackCooldownTimer(AttackCooldown));
+            }
         }
-        else if (Input.GetMouseButtonDown(0) && !isAttacking && BowIsOut && AttackCooldown > 0.2)
-        {
+        multiShot();
 
-            AttackInputHeld = true;
-            BowAnimator.SetTrigger("StartShooting");  
-            BowAnimator.SetBool("IsHolding", true); 
-
-
-        }
-        else if (Input.GetMouseButtonUp(0) && !isAttacking && AttackInputHeld && AttackCooldown > 0.2)
-        {
-
-            AttackInputHeld = false;
-            BowAnimator.ResetTrigger("StartShooting");
-            BowAnimator.SetBool("IsHolding", false);
-
-            Vector3 shootDirection = Camera.main.transform.forward;
-            Quaternion arrowRotation = Quaternion.LookRotation(shootDirection);
-
-            GameObject ArrowObject = Instantiate(Arrow, ArrowSpawn.position, arrowRotation);
-            ArrowObject.GetComponent<Rigidbody>().velocity = shootDirection * ArrowSpeed;
-
-            StartCoroutine(AttackCooldownTimer(AttackCooldown));
-        }
 
     }
 
@@ -82,5 +88,62 @@ public class BowScript : MonoBehaviour
         yield return new WaitForSeconds(CooldownTime);
         isAttacking = false;
 
+    }
+
+    public IEnumerator MultiShotTimer(float Length)
+    {
+        MultiShot = true;
+        yield return new WaitForSeconds(Length);
+        MultiShot = false;
+    }
+
+    void multiShot()
+    {
+        if (MultiShot && !isAttacking && BowIsOut)
+        {
+            if (Input.GetMouseButton(0) && AttackCooldown < 0.2)
+            {
+                AttackInputHeld = false;
+                BowAnimator.ResetTrigger("StartShooting");
+                BowAnimator.SetBool("IsHolding", false);
+
+                ArrowShoot(0.5f, 0);
+                ArrowShoot(0, 0);
+                ArrowShoot(-0.5f, 0);
+
+                StartCoroutine(AttackCooldownTimer(AttackCooldown));
+            }
+            else if (Input.GetMouseButtonDown(0) && AttackCooldown > 0.2)
+            {
+
+                AttackInputHeld = true;
+                BowAnimator.SetTrigger("StartShooting");
+                BowAnimator.SetBool("IsHolding", true);
+
+
+            }
+            else if (Input.GetMouseButtonUp(0) && AttackCooldown > 0.2 )
+            {
+
+                AttackInputHeld = false;
+                BowAnimator.ResetTrigger("StartShooting");
+                BowAnimator.SetBool("IsHolding", false);
+
+                ArrowShoot(1, 0);
+                ArrowShoot(0, 0);
+                ArrowShoot(-1, 0);
+
+                StartCoroutine(AttackCooldownTimer(AttackCooldown));
+            }
+        }
+    }
+
+    void ArrowShoot(float offSet, float angle)
+    {
+        Vector3 shootDirection = Camera.main.transform.forward;
+        Quaternion arrowRotation = Quaternion.LookRotation(shootDirection);
+
+        GameObject ArrowObject = Instantiate(Arrow, new Vector3(transform.position.x + offSet, transform.position.y, transform.position.z), arrowRotation);
+        ArrowObject.GetComponent<Rigidbody>().velocity = shootDirection * ArrowSpeed;
     }
 }

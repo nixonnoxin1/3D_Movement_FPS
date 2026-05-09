@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoPickUp : MonoBehaviour
+public class MultiShotScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -18,10 +18,10 @@ public class AmmoPickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            if (FindAnyObjectByType<BowScript>().AttackCooldown <= 0.1f) { Destroy(this.gameObject); return;  }
-            FindAnyObjectByType<BowScript>().AttackCooldown -= 0.05f;
+            if (FindAnyObjectByType<BowScript>().MultiShot) { Destroy(this.gameObject); return; }
+            FindAnyObjectByType<BowScript>().StartCoroutine(FindAnyObjectByType<BowScript>().MultiShotTimer(10));
             Destroy(this.gameObject);
         }
     }
