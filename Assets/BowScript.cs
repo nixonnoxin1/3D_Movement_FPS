@@ -34,8 +34,21 @@ public class BowScript : MonoBehaviour
 
     public void Attack()
     {
+        if (Input.GetMouseButton(0) && !isAttacking && BowIsOut && AttackCooldown < 0.2)
+        {
+            AttackInputHeld = false;
+            BowAnimator.ResetTrigger("StartShooting");
+            BowAnimator.SetBool("IsHolding", false);
 
-        if (Input.GetMouseButtonDown(0) && !isAttacking && BowIsOut)
+            Vector3 shootDirection = Camera.main.transform.forward;
+            Quaternion arrowRotation = Quaternion.LookRotation(shootDirection);
+
+            GameObject ArrowObject = Instantiate(Arrow, ArrowSpawn.position, arrowRotation);
+            ArrowObject.GetComponent<Rigidbody>().velocity = shootDirection * ArrowSpeed;
+
+            StartCoroutine(AttackCooldownTimer(AttackCooldown));
+        }
+        else if (Input.GetMouseButtonDown(0) && !isAttacking && BowIsOut && AttackCooldown > 0.2)
         {
 
             AttackInputHeld = true;
@@ -44,7 +57,7 @@ public class BowScript : MonoBehaviour
 
 
         }
-        else if (Input.GetMouseButtonUp(0) && !isAttacking && AttackInputHeld)
+        else if (Input.GetMouseButtonUp(0) && !isAttacking && AttackInputHeld && AttackCooldown > 0.2)
         {
 
             AttackInputHeld = false;

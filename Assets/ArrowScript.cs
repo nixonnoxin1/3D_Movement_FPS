@@ -32,8 +32,7 @@ public class ArrowScript : MonoBehaviour
         if (collision.collider.CompareTag("Enemy"))
         {
             //Enemy HP-- here insted of destroy
-            collision.gameObject.GetComponent<EnemyHealthbarScript>().currentHealth -= ArrowDamage;
-            collision.gameObject.GetComponent<EnemyHealthbarScript>().UpdateHealthBar();
+            collision.gameObject.GetComponent<EnemyHealthbarScript>().TakeDamage(ArrowDamage);
             Destroy(gameObject);
             //Destroy(collision.collider.gameObject);
         }

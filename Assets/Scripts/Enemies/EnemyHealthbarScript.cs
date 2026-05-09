@@ -18,7 +18,7 @@ public class EnemyHealthbarScript : MonoBehaviour
 
     GameObject player;
     GameObject PickupGO;
-    List<GameObject> PickUps = new List<GameObject>();
+    public List<GameObject> PickUps = new List<GameObject>();
 
     public float invincibleTime = 0.5f;
     float lastHitTime = -999f;          // start in the past so first hit always lands
@@ -33,18 +33,13 @@ public class EnemyHealthbarScript : MonoBehaviour
         maxHealth = 100;
         currentHealth = maxHealth;
 
-        PickupGO = GameObject.Find("PickUps");
 
-        for (int i = 0; i < PickupGO.transform.childCount; i++)
-        {
-            PickUps.Add(PickupGO.transform.GetChild(i).gameObject);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        destoryEnemy();
+        //destoryEnemy();
         FacePlayer();
     }
 
@@ -69,9 +64,9 @@ public class EnemyHealthbarScript : MonoBehaviour
 
     void LootDrop()
     {
-        int SpawnLoot = Random.RandomRange(1, 3);
-        print(SpawnLoot);
-        Instantiate(PickUps[SpawnLoot], new Vector3(transform.position.x, 1 , transform.position.z), Quaternion.identity);
+        int SpawnLoot = Random.Range(0, PickUps.Count); // auto scales to list size
+        var Loot = Instantiate(PickUps[SpawnLoot], new Vector3(transform.position.x, 1 , transform.position.z), Quaternion.identity);
+        Loot.SetActive(true);
     }
 
     void FacePlayer()
