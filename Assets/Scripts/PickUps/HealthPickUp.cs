@@ -22,8 +22,9 @@ public class HealthPickUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (HMS.PlayerHealth < 80) { HMS.PlayerHealth += 20; }
-            else if (HMS.PlayerHealth > 80) { HMS.PlayerHealth = HMS.MaxPlayerHealth;  }
-            Destroy(this.gameObject);
+            else if (HMS.PlayerHealth >= 80) { HMS.PlayerHealth = HMS.MaxPlayerHealth;  }
+            HMS.UpdateHeathbar();
+            Destroy(gameObject);
         }
     }
 }

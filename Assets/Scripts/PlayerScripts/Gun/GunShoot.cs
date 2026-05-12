@@ -31,7 +31,7 @@ public class GunShoot : MonoBehaviour
 
     public enum WeaponType { Pistol, AK, Sword, Bow }
     public string GunType = "Pistol";
-    private WeaponType currentWeapon;
+    public WeaponType currentWeapon;
 
 
     public float BulletSpeed = 30.0f;
@@ -114,9 +114,9 @@ public class GunShoot : MonoBehaviour
     }
 
 
-    void ToggleGunTypes()
+    public void ToggleGunTypes()
     {
-        if (IsReloading || isShooting || swordSript.isAttacking || swordSript.isBlocking) return;
+        if (IsReloading || isShooting || swordSript.isAttacking || swordSript.isBlocking || bowScript.isAttacking) return;
 
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -136,7 +136,7 @@ public class GunShoot : MonoBehaviour
         }
     }
 
-    void SwitchWeapon(WeaponType newWeapon)
+    public void SwitchWeapon(WeaponType newWeapon)
     {
         // Disable all first
         AK_Gameobject.GetComponent<MeshRenderer>().enabled = false;
@@ -179,8 +179,15 @@ public class GunShoot : MonoBehaviour
         }
     }
 
-
-
+    public void MenuEquip(string Weapon)
+    {
+        WeaponType New;
+        if (Weapon == "Bow") { New = WeaponType.Bow; }
+        else if (Weapon == "Sword") { New = WeaponType.Sword; }
+        else if (Weapon == "Pistol") { New = WeaponType.Pistol; }
+        else { New = WeaponType.Sword; }
+            SwitchWeapon(New);
+    }
 
     void SingleFire() // Pistol
     {

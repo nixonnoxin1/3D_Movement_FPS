@@ -36,5 +36,10 @@ public class HealthManagerScript : MonoBehaviour
         }
     }
 
+    public void UpdateHeathbar()
+    {
+        ForeGround.fillAmount = PlayerHealth / 100;
+    }
+
    
 }

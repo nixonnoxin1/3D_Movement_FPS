@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBulletScript : MonoBehaviour
 {
-    HealthManagerScript HMS;
+    public HealthManagerScript HMS;
     public float Damage = 5;
     // Start is called before the first frame update
     void Awake()
