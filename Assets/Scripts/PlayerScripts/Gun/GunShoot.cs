@@ -35,6 +35,7 @@ public class GunShoot : MonoBehaviour
 
 
     public float BulletSpeed = 30.0f;
+    public float bulletSpread = 0f;
 
     float DelyFire = 0.0f;
 
@@ -202,7 +203,10 @@ public class GunShoot : MonoBehaviour
             Recoil.SetTrigger("Recoil");
             Explosion.GetComponent<ParticleSystem>().Play();
             bullet.SetActive(true);// set bullet to true so ytou can see it
-            bullet.GetComponent<Rigidbody>().velocity = BulletSpawnPoint.forward * BulletSpeed;//set bullet velocity
+
+            Vector3 bulletDircetion = GetBulletDirection();
+            bullet.transform.rotation = Quaternion.LookRotation(bulletDircetion);
+            bullet.GetComponent<Rigidbody>().velocity = bulletDircetion * BulletSpeed;//set bullet velocity
             StartCoroutine(Wait(bullet));// time in between bullet so you cant rapidfire
         }
     }
@@ -257,6 +261,14 @@ public class GunShoot : MonoBehaviour
     }
 
 
+    private Vector3 GetBulletDirection()
+    {
+        float spreadAmount = Mathf.Max(0f, bulletSpread);
+        Vector2 randomSpread = Random.insideUnitCircle * spreadAmount;
+        Quaternion spreadRotation = BulletSpawnPoint.rotation * Quaternion.Euler(randomSpread.y, randomSpread.x, 0f);
+
+        return (spreadRotation * Vector3.forward).normalized;
+    }
     void AmmoHandler()
     {
         if (AKAmmo <= 0 && currentWeapon == WeaponType.AK) canShoot = false;
