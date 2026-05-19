@@ -30,6 +30,11 @@ public class PlayerController : MonoBehaviour
 
     private bool canMove = true;
 
+    void Awake()
+    {
+        Application.targetFrameRate = -1;
+        QualitySettings.vSyncCount = 0;
+    }
     void Start()
     {
         characterController = GetComponent<CharacterController>();
